@@ -67,8 +67,7 @@ function App() {
       const file = (e.target as HTMLInputElement).files?.[0];
       if (!file) return;
 
-      try {
-        const text = await file.text();
+      try {         const text = await file.text();
         StorageService.importData(text);
         refresh();
         alert('Data imported successfully!');
@@ -82,8 +81,9 @@ function App() {
   const handleClear = () => {
     if (window.confirm('Are you sure you want to delete all data? This cannot be undone.')) {
       StorageService.clearAllData();
-      refresh();
       setDemoMode(false);
+      // Force a page reload to ensure clean state
+      window.location.reload();
     }
   };
 
